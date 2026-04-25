@@ -59,8 +59,12 @@ class MainActivity : AppCompatActivity() {
                 it.setSurfaceProvider(previewView.surfaceProvider)
             }
 
+//            imageCapture = ImageCapture.Builder()
+//                .setTargetRotation(windowManager.defaultDisplay.rotation)
+//                .build()
+
             imageCapture = ImageCapture.Builder()
-                .setTargetRotation(windowManager.defaultDisplay.rotation)
+                .setTargetRotation(previewView.display.rotation)
                 .build()
 
             cameraProvider.unbindAll()
@@ -74,6 +78,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+
+        imageCapture?.targetRotation = previewView.display.rotation
+
         val photoFile = File(
             externalCacheDir,
             "${System.currentTimeMillis()}.jpg"
@@ -133,4 +140,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }
